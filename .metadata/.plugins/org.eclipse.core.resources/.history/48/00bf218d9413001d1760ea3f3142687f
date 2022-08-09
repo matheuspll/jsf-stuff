@@ -1,0 +1,9 @@
+package br.com.medicamento.model;
+
+public class Medicamento implements Serializable, Base {
+
+	
+	public Long getId() {
+		
+	}
+}

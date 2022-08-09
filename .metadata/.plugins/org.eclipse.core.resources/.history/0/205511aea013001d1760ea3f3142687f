@@ -1,0 +1,8 @@
+package br.com.medicamento.model;
+
+import java.io.Serializable;
+
+public class DAO<T extends Base> implements Serializable {
+	
+
+}

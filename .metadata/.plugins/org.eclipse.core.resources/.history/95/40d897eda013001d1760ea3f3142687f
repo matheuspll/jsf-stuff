@@ -1,0 +1,9 @@
+package br.com.medicamento.model;
+
+import java.io.Serializable;
+
+// fazer com que qualquer tipo de Entidade extenda Base
+public class DAO<T extends Base> implements Serializable {
+	
+
+}

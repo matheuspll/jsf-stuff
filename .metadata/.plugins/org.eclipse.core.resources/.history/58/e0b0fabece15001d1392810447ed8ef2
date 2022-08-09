@@ -1,0 +1,47 @@
+package br.com.medicamento.controller;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
+import br.com.medicamento.model.Aluno;
+
+public class AlunoController {
+
+	EntityManagerFactory emf;
+	EntityManager em;
+
+	public AlunoController() {
+		emf = Persistence.createEntityManagerFactory("alunoTest");
+		em = emf.createEntityManager();
+	}
+
+	public void save(Aluno aluno) {
+		em.merge(aluno);
+	}
+
+	public Aluno findById(Class<Aluno> entityClass, Integer id) {
+		return em.find(entityClass, id);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Aluno> findAll() {
+		em.getTransaction().begin();
+		Query query = em.createQuery("SELECT a FROM Aluno a order by a.name"); // orientado a Aluno = classe.
+		return query.getResultList(); // executa a Query(Select) e retorna todas as consultas			
+	}
+	
+	public void begin() {		
+		em.getTransaction().begin();
+	}
+	
+
+
+	public void close() {
+		em.getTransaction().commit();
+		emf.close();
+	}
+}

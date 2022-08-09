@@ -1,0 +1,49 @@
+package br.com.vendas.dao;
+
+import java.io.Serializable;
+
+import javax.persistence.EntityManager;
+
+import br.com.vendas.controller.Base;
+
+// Classe Dao que recebe entidades de qualquer tipo <T> e o mesmo tipo <T> deve extender de Base para ter um getID
+public class DAO<T extends Base> implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	// instanciar o manager para utilizar os métodos da JPAS
+	private static EntityManager em = ConnectionFactory.getEntityManager();
+	public T findById(Class<T> entityClass, Integer id) {
+		return em.find(entityClass, id);
+	}
+	
+	public void save(T entity) {
+		try {
+			em.getTransaction().begin();
+			em.persist(entity);
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+		}
+	}
+	
+	public void merge(T entity) {
+		try {
+			em.getTransaction().begin();
+			em.merge(entity);
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+		}
+	}
+	
+	public void remove(Class<T>, T entity) {
+		try {
+			em.getTransaction().begin();
+			T t = em.find(Class<T>, entity.getId());
+			em.remove(t);
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+		}
+	}
+}

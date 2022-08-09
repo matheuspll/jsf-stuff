@@ -1,0 +1,12 @@
+package br.com.vendas.dao;
+
+import java.io.Serializable;
+
+import br.com.vendas.controller.Base;
+
+// Classe Dao que recebe entidades de qualquer tipo <T> e o mesmo tipo <T> deve extender de Base para ter um getID
+public class DAO<T extends Base> implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	
+}

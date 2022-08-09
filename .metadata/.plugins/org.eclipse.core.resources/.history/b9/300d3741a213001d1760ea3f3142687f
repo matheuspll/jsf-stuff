@@ -1,0 +1,33 @@
+package br.com.medicamento.model;
+
+import java.io.Serializable;
+
+import javax.persistence.EntityManager;
+
+import br.com.medicamento.dao.ConnectionFactory;
+
+// Classe Dao que representa qualquer Entidade que assine um contrato com Base. pois o Dao estende a interface base
+public class DAO<T extends Base> implements Serializable {
+	
+	private static EntityManager manager = ConnectionFactory.getEntityManager();
+	
+	// método para buscar uma Entidade generica, devolvendo a entidade modelo e seu Id.
+	public T findById(Class<T> clazz, Long id) {
+		return manager.find(clazz, id);
+	}
+	
+	// esse método salva e atualiza uma entidade existente
+	public void save(T obj) {
+		
+		manager.getTransaction().begin();
+		
+		
+		manager.getTransaction().commit();
+		
+		
+	}
+	catch (Exception e) {
+		manager.getTransaction().rollback();
+	}
+
+}

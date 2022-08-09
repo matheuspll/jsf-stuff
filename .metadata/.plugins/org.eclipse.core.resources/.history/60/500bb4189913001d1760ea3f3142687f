@@ -1,0 +1,5 @@
+package br.com.medicamento.dao;
+
+public class ConnectionFactory {
+
+}

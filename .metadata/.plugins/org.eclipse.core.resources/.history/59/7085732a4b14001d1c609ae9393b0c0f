@@ -1,0 +1,15 @@
+package br.com.medicamento.service;
+
+import java.io.Serializable;
+
+import javax.inject.Inject;
+
+public class MedicamentoService implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	@Inject // injeta a dependencia Dao/repository
+	private Dao<Medicamento> medicamentoDao;
+	
+	
+	
+}

@@ -1,0 +1,37 @@
+package br.com.medicamento.service;
+
+import java.io.Serializable;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import br.com.medicamento.model.Medicamento;
+import br.com.medicamento.utility.NegocioException;
+import br.com.vendas.dao.DAO;
+
+public class MedicamentoService implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	@Inject // injeta a dependencia Dao/repository
+	private DAO<Medicamento> medicamentoDao;
+	
+	// propagando o tratamento da exceção para o managedBean(Controller)
+	// try catch trata a exceção no mesmo local. throws propaga
+	public void save(Medicamento medicamento) throws NegocioException {
+		if (medicamento.getName().length() < 3) {
+			throw new NegocioException("O nome do medicamento não pode ter menos que 3 caracteres");			
+		}
+		
+		medicamentoDao.save(medicamento);
+	}
+	
+	public void remove(Medicamento medicamento) throws NegocioException {
+		medicamentoDao.remove(Medicamento.class, medicamento.getId()); // similar ao JpaRepository<E, Id>
+	}
+	
+	// buscando todos os medicamentos usando jpsql
+	public List<Medicamento> findAll() {
+		return medicamentoDao.findAll("SELECT m FROM Medicamento m order by m.name");
+	}
+	
+}

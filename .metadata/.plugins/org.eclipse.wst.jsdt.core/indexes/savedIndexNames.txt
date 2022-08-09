@@ -1,0 +1,8 @@
+INDEX VERSION 1.4+D:\temp\gestao-academica\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+172574147.index
+3649051089.index
+757698447.index
+3064165043.index
+628742962.index
+4097839583.index
+2178630404.index

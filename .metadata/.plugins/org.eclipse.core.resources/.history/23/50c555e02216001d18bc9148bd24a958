@@ -1,0 +1,26 @@
+package br.com.medicamento.service;
+
+import java.io.Serializable;
+
+import javax.inject.Inject;
+
+import br.com.medicamento.model.Movie;
+import br.com.vendas.dao.DAO;
+import br.com.vendas.utility.NegocioException;
+
+public class MovieService implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	
+	@Inject // injeta a dependencia Dao/repository
+	private DAO<Movie> movieDao;
+	
+	public void save(Movie movie) throws NegocioException {
+		if (movie.getMovieName().length() < 3) {
+			throw new NegocioException("O nome do medicamento não pode ter menos que 3 caracteres");			
+		}
+		
+		movieDao.save(movie);
+	}
+	
+}

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!--  library=nome_pasta name=arquivo.css -->
+	<title>Insert title here</title>
+
+
+</h:head>
+<h:body>
+
+	<header style="display: flex; flex-direction: row-reverse; justify-content: flex-end;">
+		<div>
+			<p style="font-size: 2em;">Treinamento JSF e Primefaces</p>
+		</div>
+		<div>
+			<h:graphicImage library="images" name="twitter.png" width="80" />
+		</div>
+	</header>
+
+
+	<h1>Campos de entrada de texto</h1>
+
+	<!-- componente que mostra uma mensagem -->
+	<p:messages autoUpdate="true" id="msg" />
+
+
+	<h:form id="form">
+		<!--  panelGrid é uma tabela. columns = bota os elementos em colunas
+		 outputLabel da o nome da coluna, e o for serve para vincular a etiqueta com o campo pelo id -->
+<!-- disable, pode receber um boolean baseado em uma condição do managedBean El (expression language) -->
+		<p:panelGrid columns="2">
+			<p:outputLabel value="Nome" for="nome" />		
+			<p:inputText id="nome" required="true"
+				requiredMessage="O nome é obrigatório!" maxlength="10" size="30"
+				placeholder="insira o nome aqui"
+				title="O mouse está sobre o componente"
+				disabled="true" value="#{bean.pessoa.nome}"/>
+		</p:panelGrid>
+	</h:form>
+
+
+</h:body>
+</html>

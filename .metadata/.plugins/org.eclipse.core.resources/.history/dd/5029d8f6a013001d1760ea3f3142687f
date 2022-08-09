@@ -1,0 +1,9 @@
+package br.com.medicamento.model;
+
+import java.io.Serializable;
+
+// Classe Dao que representa qualquer Entidade que assine um contrato com Base.
+public class DAO<T extends Base> implements Serializable {
+	
+
+}

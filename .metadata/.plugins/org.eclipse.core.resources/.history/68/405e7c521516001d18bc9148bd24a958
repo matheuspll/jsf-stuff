@@ -1,0 +1,99 @@
+package br.com.vendas.controller;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
+import br.com.vendas.model.Pessoa;
+
+@Named("bean")
+@ApplicationScoped
+public class PessoaMB implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	@Inject
+	private Pessoa pessoa;
+
+	private List<Pessoa> pessoas = new ArrayList<>();
+
+	EntityManagerFactory emf;
+	EntityManager em;
+
+	public PessoaMB() {
+		emf = Persistence.createEntityManagerFactory("pessoaTest");
+		em = emf.createEntityManager();
+	}
+
+	@PostConstruct // é um método que é invocado logo após a injeção de dependencia
+	public void carregar() {
+		pessoas = findAll();
+	}
+
+	public void adicionar() {
+		System.out.println("entrei");
+		save(pessoa);
+		limpar(); // limpa a variavel aluno / formulário
+		carregar(); // carrega a lista de medicamentos ao salvar
+	}
+
+	public void save(Pessoa pessoa) {
+
+		try {
+			em.getTransaction().begin();
+
+			if (pessoa.getId() == null) {
+				em.persist(pessoa);
+			} else {
+				em.merge(pessoa);
+			}
+
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+		}
+	}
+//
+//	public String adicionar() {
+//		pessoas.add(pessoa);
+//		limpar(); // limpa os dados dos campos da interface.
+//		return null;
+//	}
+//	
+	
+	@SuppressWarnings("unchecked")
+	public List<Pessoa> findAll() {
+		Query query = em.createQuery("SELECT p FROM Pessoa p order by p.nome"); // orientado a Aluno = classe.
+		return query.getResultList(); // executa a Query(Select) e retorna todas as consultas			
+	}
+
+	private void limpar() {
+		pessoa = new Pessoa();
+	}
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
+
+	public List<Pessoa> getPessoas() {
+		return pessoas;
+	}
+
+	public void setPessoas(List<Pessoa> pessoas) {
+		this.pessoas = pessoas;
+	}
+
+}

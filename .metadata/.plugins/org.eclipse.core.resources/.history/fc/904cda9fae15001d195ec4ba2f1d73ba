@@ -1,0 +1,19 @@
+package br.com.medicamento.service;
+
+import java.io.Serializable;
+
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+
+import br.com.medicamento.model.DAO;
+import br.com.medicamento.model.Movie;
+
+public class MovieService implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	
+	@Inject // injeta a dependencia Dao/repository
+	private DAO<Movie> movieDao;
+	
+	
+}

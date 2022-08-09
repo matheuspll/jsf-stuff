@@ -1,0 +1,14 @@
+package br.com.medicamento.model;
+
+import java.io.Serializable;
+
+public class Medicamento implements Serializable, Base {
+
+	private static final long serialVersionUID = 1L;
+	
+	
+	
+	public Long getId() {
+		
+	}
+}

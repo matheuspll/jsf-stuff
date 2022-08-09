@@ -1,0 +1,22 @@
+package br.com.medicamento.model;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+
+public class Medicamento implements Serializable, Base {
+	private static final long serialVersionUID = 1L;
+	
+	private Long id;
+	private String name;
+	private String apresentacao;
+	private String laboratorio;
+	private String registro;
+	private BigDecimal preco;
+	
+	
+	public Long getId() {
+		return id;
+	}
+	
+	
+}

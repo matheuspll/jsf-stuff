@@ -1,0 +1,9 @@
+package br.com.vendas.dao;
+
+import java.io.Serializable;
+
+import br.com.vendas.controller.Base;
+
+public class DAO<T extends Base> implements Serializable {
+	public static final long serialVersionUID = 1L;
+}

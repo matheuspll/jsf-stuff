@@ -1,0 +1,74 @@
+package br.com.vendas.dao;
+
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
+import br.com.vendas.controller.Base;
+
+// Classe Dao que recebe entidades de qualquer tipo <T> e o mesmo tipo <T> deve extender de Base para ter um getID
+public class DAO<T extends Base> implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	// instanciar o manager para utilizar os métodos da JPAS
+	private static EntityManager em = ConnectionFactory.getEntityManager();
+	
+	public T findById(Class<T> entityClass, final int id) {
+		return em.find(entityClass, id);
+	}
+	
+	public void save(T entity) {
+		try {
+			em.getTransaction().begin();
+			if (entity.getId() == null) {
+				em.persist(entity);				
+			} else {
+				update(entity);
+			}
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+		}
+	}
+	
+	public void update(T entity) {
+		try {
+			em.getTransaction().begin();
+			em.merge(entity);
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+		}
+	}
+	
+//	public void remove(Class<T> entityClass, T entity) {
+//		try {
+//			em.getTransaction().begin();
+//			T t = em.find(entityClass, entity.getId());
+//			em.remove(t);
+//			em.getTransaction().commit();
+//		} catch (Exception e) {
+//			em.getTransaction().rollback();
+//		}
+//	}
+//	
+	public void remove(Class<T> entityClass, final int id) {
+		try {
+			em.getTransaction().begin();
+			T t = findById(entityClass, id);
+			em.remove(t);
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+		}
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<T> findAll(String jpql) {
+		Query query = em.createQuery(jpql);
+		return query.getResultList(); 
+	}
+}

@@ -1,0 +1,25 @@
+package br.com.dominio.model;
+
+import br.com.medicamento.controller.AlunoController;
+import br.com.medicamento.model.Aluno;
+
+public class Program {
+
+	public static void main(String[] args) {
+		
+		Aluno a1 = new Aluno();
+		a1.setId(null);
+		a1.setName("Matheus");
+		
+		AlunoController conn = new AlunoController();
+		
+		// salvando
+		
+		conn.save(a1);
+		
+		// buscando 
+		a1 = conn.findById(null, 1);
+		System.out.println(a1);
+		System.out.println("teste");
+	}
+}

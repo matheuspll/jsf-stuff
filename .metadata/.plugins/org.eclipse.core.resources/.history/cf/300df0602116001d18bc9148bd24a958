@@ -1,0 +1,25 @@
+package br.com.vendas.service;
+
+import java.io.Serializable;
+
+import javax.inject.Inject;
+
+import br.com.vendas.dao.DAO;
+import br.com.vendas.model.Pessoa;
+import br.com.vendas.utility.BusinessException;
+
+public class PessoaService implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private DAO<Pessoa> pessoa;
+	
+	public void save(Pessoa pessoa) {
+		if (pessoa.getNome().length() < 2) {
+			throw new BusinessException("O Nome não pode ter menos que duas letras");
+		}
+		
+		
+	}
+
+}

@@ -1,0 +1,74 @@
+package br.com.medicamento.model;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+
+public class Medicamento implements Serializable, Base {
+	private static final long serialVersionUID = 1L;
+	
+	private Long id;
+	private String name;
+	private String apresentacao;
+	private String laboratorio;
+	private String registro;
+	private BigDecimal preco;
+	
+	
+	public Long getId() {
+		return id;
+	}	
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public String getApresentacao() {
+		return apresentacao;
+	}
+
+
+	public void setApresentacao(String apresentacao) {
+		this.apresentacao = apresentacao;
+	}
+
+
+	public String getLaboratorio() {
+		return laboratorio;
+	}
+
+
+	public void setLaboratorio(String laboratorio) {
+		this.laboratorio = laboratorio;
+	}
+
+
+	public String getRegistro() {
+		return registro;
+	}
+
+
+	public void setRegistro(String registro) {
+		this.registro = registro;
+	}
+
+
+	public BigDecimal getPreco() {
+		return preco;
+	}
+
+
+	public void setPreco(BigDecimal preco) {
+		this.preco = preco;
+	}
+	
+}

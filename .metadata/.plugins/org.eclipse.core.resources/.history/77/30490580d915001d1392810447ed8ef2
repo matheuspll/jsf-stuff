@@ -1,0 +1,80 @@
+package br.com.medicamento.controller;
+
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
+import br.com.medicamento.model.Aluno;
+
+@Named
+@ViewScoped
+public class AlunoController {
+	
+	@Inject 
+	private Aluno aluno; // ao inserir no formulário é injetado um medicamento
+	
+	private List<Aluno> alunos;
+
+	EntityManagerFactory emf;
+	EntityManager em;
+	
+	@PostConstruct // é um método que é invocado logo após a injeção de dependencia 
+	public void carregar() {
+		alunos = findAll();
+	}
+
+	public AlunoController() {
+		emf = Persistence.createEntityManagerFactory("alunoTest");
+		em = emf.createEntityManager();
+	}
+	
+	public void adicionar() {
+
+		save(aluno); 
+		aluno = new Aluno(); // limpa a variavel medicamento / formulário
+		carregar(); // carrega a lista de medicamentos ao salvar			
+	}
+
+	public void save(Aluno aluno) {
+		em.merge(aluno);
+	}
+
+	public Aluno findById(Class<Aluno> entityClass, Integer id) {
+		return em.find(entityClass, id);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Aluno> findAll() {
+		Query query = em.createQuery("SELECT a FROM Aluno a order by a.name"); // orientado a Aluno = classe.
+		return query.getResultList(); // executa a Query(Select) e retorna todas as consultas			
+	}
+	
+	public void begin() {		
+		em.getTransaction().begin();
+	}
+
+	public void close() {
+		em.getTransaction().commit();
+		emf.close();
+	}
+	
+	public Aluno getAluno() {
+		return aluno;
+	}
+	
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
+	}
+	
+	public List<Aluno> getAlunos() {
+		return alunos;
+	}	
+	
+}
